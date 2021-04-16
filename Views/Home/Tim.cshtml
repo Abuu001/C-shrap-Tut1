@@ -1,9 +1,43 @@
-﻿@{
-    ViewData["Title"] = "Tim";
-}
+﻿ 
 
 <h1>Tim corey</h1>
 
 <p>
     Abu was here
 </p>
+
+
+<h1>All book list @DateTime.Now</h1>
+<h1>sum of 3 + 5 = @(3+5)</h1>
+<h1>All book list @DateTime.Now.ToString("dd/mm/yy")</h1>
+
+<p>Multiline</p>
+@{
+    int a = 10;
+    int b = 30;
+    int c = a + b;
+
+}
+<p>@c</p>
+<h2>My email is example1@gmail.com</h2>
+
+@if (true)
+{
+    <i>twitter @@webgentle</i>
+}
+
+@for (int i = 0; i < 5; i++)
+{
+    <h1>Hey am a loop</h1>
+}
+
+@{
+    var list = new List<int> { 1, 2, 3, 4, 5 };
+}
+
+@foreach (var item in list)
+{
+    <p>@item</p>
+}
+<button>Click me</button>
+
