@@ -25,12 +25,18 @@ namespace JokesWebApp.Controllers
         public ViewResult GetAllBooks()
         {
             var data = _bookRepository.GetAllBooks();
-            return View();
+            return View(data);
         }
 
-        public BookModel GetBook(int id )
+        public ViewResult GetBook(int id )
         {
-            return _bookRepository.GetBookById(id);
+            //var data= _bookRepository.GetBookById(id);
+            //return View(data);
+            // we can use this method to pass different data from different sources
+            dynamic data = new System.Dynamic.ExpandoObject();
+            data.book = _bookRepository.GetBookById(id);
+            data.Name = "Abluu";
+            return View(data);
         }
 
         public List<BookModel> SearchBook(string bookName ,string authorName)
