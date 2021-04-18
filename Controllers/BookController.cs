@@ -39,6 +39,16 @@ namespace JokesWebApp.Controllers
             return View(data);
         }
 
+        public ViewResult AddNewBook()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ViewResult AddNewBook(BookModel bookModel)
+        {
+            return View();
+        }
         public List<BookModel> SearchBook(string bookName ,string authorName)
         {
             return _bookRepository.SearchBook(bookName,authorName);
