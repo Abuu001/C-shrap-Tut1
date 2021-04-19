@@ -12,6 +12,7 @@ using JokesWebApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using JokesWebApp.Repositories;
 
 namespace JokesWebApp
 {
@@ -32,13 +33,18 @@ namespace JokesWebApp
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddDbContext<BookStoreContext>(options =>
+               options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-JokesWebApp-7C83C8E4-698F-4BF2-A4AB-D86242F51B12;Trusted_Connection=True;MultipleActiveResultSets=true"));
+
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddScoped<BookRepository,BookRepository>();
 
             //to configure razor pages outomatically make changes instead of building evry time
-#if DEBUG
+        #if DEBUG
             services.AddRazorPages().AddRazorRuntimeCompilation();
-#endif
+        #endif
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
