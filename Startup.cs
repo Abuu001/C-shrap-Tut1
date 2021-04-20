@@ -34,8 +34,8 @@ namespace JokesWebApp
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddDbContext<BookStoreContext>(options =>
-               options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-JokesWebApp-7C83C8E4-698F-4BF2-A4AB-D86242F51B12;Trusted_Connection=True;MultipleActiveResultSets=true"));
+            //services.AddDbContext<BookStoreContext>(options =>
+            //   options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=aspnet-JokesWebApp-7C83C8E4-698F-4BF2-A4AB-D86242F51B12;Trusted_Connection=True;MultipleActiveResultSets=true"));
 
             services.AddControllersWithViews();
             services.AddRazorPages();
