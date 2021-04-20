@@ -1,0 +1,15 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jquery-validate@1.19.2",
+      "destination": "wwwroot/jquery-validate/"
+    }
+  ,
+{
+  "library": "jquery-ajax-unobtrusive@3.2.6",
+  "destination": "wwwroot/lib/jquery-ajax-unobtrusive/"
+}
+]
+}
