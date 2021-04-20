@@ -10,8 +10,8 @@ namespace JokesWebApp.Repositories
 {
     public class BookRepository
     {
-        private readonly BookStoreContext _context = null;
-        public BookRepository(BookStoreContext context)
+        private readonly ApplicationDbContext _context = null;
+        public BookRepository(ApplicationDbContext context)
         {
             _context=context;
         }
@@ -20,11 +20,12 @@ namespace JokesWebApp.Repositories
             var newBook = new Books()
             {
                 Author = model.Author,
-                // CreatedOn =DateTime.UtcNow  ,
+                CreatedOn =DateTime.UtcNow  ,
                 Description = model.Description,
                 Title = model.Title,
+                LanguageId=model.LanguageId,
                 TotalPages=model.TotalPages.HasValue ? model.TotalPages.Value : 0,
-               // UpdatedOn=DateTime.UtcNow
+                UpdatedOn=DateTime.UtcNow
             };
 
             await  _context.Books.AddAsync(newBook);
@@ -46,7 +47,7 @@ namespace JokesWebApp.Repositories
                         Title=book.Title,
                         Description=book.Description,
                         Id=book.Id,
-                        Language=book.Language,
+                        LanguageId=book.LanguageId,
                         TotalPages=book.TotalPages
                     });
                 }
@@ -67,7 +68,7 @@ namespace JokesWebApp.Repositories
                     Title = book.Title,
                     Description = book.Description,
                     Id = book.Id,
-                    Language = book.Language,
+                    LanguageId = book.LanguageId,
                     TotalPages = book.TotalPages
                 };
 
@@ -80,20 +81,21 @@ namespace JokesWebApp.Repositories
 
         public List<BookModel> SearchBook(string title,string authorName)
         {
-            return DataSource().Where(x=>x.Author==authorName && x.Title==title).ToList();
+            //return DataSource().Where(x=>x.Author==authorName && x.Title==title).ToList();
+            return null;
         }
 
-        private List<BookModel> DataSource()
-        {
-            return new List<BookModel>()
-            {
-                new BookModel() {Id=1 ,Title="MVC",Author="Nitsh", Description="This is MVC book",Category="Programming",Language="English",TotalPages=134},
-                new BookModel() {Id=2 ,Title="Dot Net",Author="Nitsh", Description="This is MVC book" ,Category="Framework",Language="French",TotalPages=88},
-                new BookModel() {Id=3 ,Title="C#",Author="Monika" , Description="This is C# book",Category="Developer",Language="Spanish",TotalPages=4},
-                new BookModel() {Id=4 ,Title="Java",Author="Chaudhry" , Description="This is Java book",Category="Engineer",Language="Kiswahili",TotalPages=7},
-                new BookModel() {Id=5 ,Title="Python",Author="Bentah" , Description="This is Python book",Category="Software",Language="English",TotalPages=32},
-                new BookModel() {Id=6 ,Title="React",Author="Nitsh" , Description="This is React book",Category="Programming",Language="German",TotalPages=11},
-            };
-        }
+        //private List<BookModel> DataSource()
+        //{
+        //    return new List<BookModel>()
+        //    {
+        //        new BookModel() {Id=1 ,Title="MVC",Author="Nitsh", Description="This is MVC book",Category="Programming",Language="English",TotalPages=134},
+        //        new BookModel() {Id=2 ,Title="Dot Net",Author="Nitsh", Description="This is MVC book" ,Category="Framework",Language="French",TotalPages=88},
+        //        new BookModel() {Id=3 ,Title="C#",Author="Monika" , Description="This is C# book",Category="Developer",Language="Spanish",TotalPages=4},
+        //        new BookModel() {Id=4 ,Title="Java",Author="Chaudhry" , Description="This is Java book",Category="Engineer",Language="Kiswahili",TotalPages=7},
+        //        new BookModel() {Id=5 ,Title="Python",Author="Bentah" , Description="This is Python book",Category="Software",Language="English",TotalPages=32},
+        //        new BookModel() {Id=6 ,Title="React",Author="Nitsh" , Description="This is React book",Category="Programming",Language="German",TotalPages=11},
+        //    };
+        //}
     }
 }
