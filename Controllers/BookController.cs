@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using JokesWebApp.Models;
 using JokesWebApp.Repositories;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JokesWebApp.Controllers
@@ -12,10 +14,11 @@ namespace JokesWebApp.Controllers
     {
 
         public readonly BookRepository _bookRepository =null;
-
-        public BookController(BookRepository context)
+        private readonly IWebHostEnvironment _webHostEnvironment ;
+        public BookController(BookRepository context, IWebHostEnvironment webHostEnvironment)
         {
             _bookRepository = context;
+            _webHostEnvironment = webHostEnvironment;
            // _bookRepository = new BookRepository();
         }
         public IActionResult Index()
@@ -52,7 +55,18 @@ namespace JokesWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                int id =await  _bookRepository.AddNewBook(bookModel);
+              var id =await  _bookRepository.AddNewBook(bookModel);
+
+                //if there is a selected photo do this
+                if(bookModel.CoverPhoto != null)
+                {
+                    string folder = "books/cover/";
+                    folder += Guid.NewGuid().ToString() + bookModel.CoverPhoto.FileName;
+                    string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folder);
+
+                  await  bookModel.CoverPhoto.CopyToAsync(new FileStream(serverFolder,FileMode.Create));
+
+                }
 
                 if (id > 0)
                 {
