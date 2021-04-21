@@ -25,13 +25,27 @@ namespace JokesWebApp.Repositories
                 Title = model.Title,
                 LanguageId=model.LanguageId,
                 TotalPages=model.TotalPages.HasValue ? model.TotalPages.Value : 0,
-                UpdatedOn=DateTime.UtcNow
+                UpdatedOn=DateTime.UtcNow,
+                CoverImageUrl=model.CoverImageUrl,
+                BookPdfUrl=model.BookPdfUrl
             };
+
+            //newBook.bookGallery = new List<BookGallery>();
+            //foreach (var file in model.Gallery)
+            //{
+            //    newBook.bookGallery.Add(new BookGallery()
+            //    {
+            //        Name=file.Name,
+            //        URL=file.URL
+            //    });
+            //}
 
             await  _context.Books.AddAsync(newBook);
             await _context.SaveChangesAsync();
             return newBook.Id;
         }
+ 
+
         public async Task<List<BookModel>>  GetAllBooks()
         {
             var books = new List<BookModel>();
@@ -48,12 +62,30 @@ namespace JokesWebApp.Repositories
                         Description=book.Description,
                         Id=book.Id,
                         LanguageId=book.LanguageId,
-                        TotalPages=book.TotalPages
+                        TotalPages=book.TotalPages,
+                        CoverImageUrl = book.CoverImageUrl
                     });
                 }
             }
 
             return books;
+        }
+
+        public async Task<List<BookModel>> GetTopBooksAsync()
+        {
+            return await _context.Books
+                   .Select(book => new BookModel()
+                   {
+                       Author = book.Author,
+                       Category = book.Category,
+                       Title = book.Title,
+                       Description = book.Description,
+                       Id = book.Id,
+                       LanguageId = book.LanguageId,
+                       TotalPages = book.TotalPages,
+                       CoverImageUrl = book.CoverImageUrl
+                   }).Take(5).ToListAsync();
+            
         }
 
         public async Task<BookModel>  GetBookById(int id)
@@ -69,7 +101,15 @@ namespace JokesWebApp.Repositories
                     Description = book.Description,
                     Id = book.Id,
                     LanguageId = book.LanguageId,
-                    TotalPages = book.TotalPages
+                    TotalPages = book.TotalPages,
+                    CoverImageUrl = book.CoverImageUrl,
+                    Gallery = book.bookGallery.Select(g=> new GalleryModel()
+                    {
+                        Id=g.Id,
+                        Name=g.Name,
+                        URL=g.URL
+                    }).ToList(),
+                    BookPdfUrl=book.BookPdfUrl
                 };
 
                 return bookDetails;
