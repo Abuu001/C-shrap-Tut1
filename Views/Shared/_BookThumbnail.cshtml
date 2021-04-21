@@ -1,0 +1,13 @@
+﻿@model BookModel
+
+<div class="card" style="width: 18rem;" id="pic1">
+    <img class="img-thumbnail" asp-append-version="true" src="@(string.IsNullOrEmpty(Model.CoverImageUrl) ? "/images/postgres.png" : Model.CoverImageUrl )" alt="logo">
+    <div class="card-body">
+        <i>Book @Model.Id</i>
+        <h5 class="card-title"><i>Title : </i>@(string.IsNullOrEmpty(Model.Title) ? "Name is not available" : Model.Title)</h5>
+        <p class="card-text"><i>About : </i>@(string.IsNullOrEmpty(Model.Description) ? "Description is not available" : Model.Description)</p>
+        <small class="text-muted"><i>Author :</i>@(string.IsNullOrEmpty(Model.Author) ? "NA" : Model.Author)</small>
+        @*<a href="/book/getbook/@Model.Id" class="btn btn-outline-primary">Read more</a>*@
+        <a asp-action="getbook" asp-controller="Book" asp-route-Id="@Model.Id" class="btn btn-outline-primary">Read more</a>
+    </div>
+</div>
