@@ -1,0 +1,30 @@
+﻿@modal  
+
+<div class="row">
+
+    <div class="col-sm">
+        <partial name="_BookThumbnail" model="new BookModel()" />
+    </div>
+
+    <div class="col-sm">
+        @*<partial name="_BookThumbnail" model="new BookModel()" />*@
+        @Html.Partial("_BookThumbnail", new BookModel())
+    </div>
+
+    <div class="col-sm">
+        @*<partial name="_BookThumbnail" model="new BookModel()"/>*@
+        @await Html.PartialAsync("_BookThumbnail", new BookModel())
+    </div>
+
+    <div class="col-sm">
+        @*<partial name="_BookThumbnail" model="new BookModel()"/>*@
+        @{
+            await Html.RenderPartialAsync("_BookThumbnail", new BookModel());
+        }
+    </div>
+
+
+    <div class="col-sm">
+        <partial name="_BookThumbnail" model="new BookModel()" />
+    </div>
+</div>
