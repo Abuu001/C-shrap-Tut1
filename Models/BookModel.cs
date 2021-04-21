@@ -24,8 +24,21 @@ namespace JokesWebApp.Models
         public int LanguageId { get; set; }
         [Required(ErrorMessage = "Please Enter Total pages")]
         public int? TotalPages { get; set; }
+        public string CoverImageUrl { get; set; }
 
         [Display(Name ="Choose the cover photo of your file")]
         public IFormFile CoverPhoto { get; set; }
+
+        //for selecting multiple images
+        [Display(Name = "Choosegallery images of your book")]
+        public IFormFileCollection GalleryFiles { get; set; }
+        public List<GalleryModel> Gallery { get; set; }
+
+        //For pdf files
+        [Display(Name = "Upload your book pdf")]
+        public IFormFile BookPdf { get; set; }
+        public string BookPdfUrl { get; set; }
+
+
     }
 }

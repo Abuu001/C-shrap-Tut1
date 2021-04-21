@@ -23,7 +23,8 @@
     <span class="sr-only" id="myLoader">Loading...</span>
 </div>
 
-<form method="post" enctype="multipart/form-data" data-ajax-loading="#myLoader" data-ajax="true" data-ajax-success="mySuccess" data-ajax-complete="myComplete" asp-action="AddNewBook" asp-controller="Book">
+@*<form method="post" enctype="multipart/form-data" data-ajax-loading="#myLoader" data-ajax="true" data-ajax-success="mySuccess" data-ajax-complete="myComplete" asp-action="AddNewBook" asp-controller="Book">*@
+<form method="post" enctype="multipart/form-data" asp-action="AddNewBook" asp-controller="Book">
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <div class="form-group">
@@ -71,10 +72,28 @@
     <div class="form-group">
         <label asp-for="CoverPhoto"></label>
         <div class="custom-file">
-            <input asp-for="CoverPhoto" class="custom-file-input" id="customFile"/>
+            <input asp-for="CoverPhoto" class="custom-file-input" id="customFile" />
             <label class="custom-file-label">Choose file</label>
         </div>
         <span asp-validation-for="CoverPhoto" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="GalleryFiles"></label>
+        <div class="custom-file">
+            <input asp-for="GalleryFiles" class="custom-file-input" id="customFile" />
+            <label class="custom-file-label">Choose file</label>
+        </div>
+        <span asp-validation-for="GalleryFiles" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BookPdf"></label>
+        <div class="custom-file">
+            <input asp-for="BookPdf" class="custom-file-input" id="customFile" />
+            <label class="custom-file-label">Choose file</label>
+        </div>
+        <span asp-validation-for="BookPdf" class="text-danger"></span>
     </div>
 
     <div class="form-group">

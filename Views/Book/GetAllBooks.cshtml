@@ -13,17 +13,9 @@
         @foreach (var book in Model)
         {
             <div class="col-sm">
-                <div class="card" style="width: 18rem;" id="pic1">
-                    <img class="card-img-top" asp-append-version="true" src="~/images/water.jpeg" alt="logo">
-                    <div class="card-body">
-                        <i>Book @book.Id</i>
-                        <h5  class="card-title"><i>Title : </i> @book.Title</h5>
-                        <p class="card-text"><i>About : </i> @book.Description</p>
-                        <small class="text-muted"><i>Author :</i> @book.Author</small>
-                        @*<a href="/book/getbook/@book.Id" class="btn btn-outline-primary">Read more</a>*@
-                        <a asp-action="getbook" asp-controller="Book" asp-route-Id="@book.Id" class="btn btn-outline-primary">Read more</a>
-                    </div>
-                </div>
+
+                <partial name="_BookThumbnail" model="@book" />
+
             </div>
         }
     </div>
