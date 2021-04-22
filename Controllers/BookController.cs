@@ -14,9 +14,9 @@ namespace JokesWebApp.Controllers
     public class BookController : Controller
     {
 
-        public readonly BookRepository _bookRepository =null;
+        public readonly IBookRepository _bookRepository =null;
         private readonly IWebHostEnvironment _webHostEnvironment ;
-        public BookController(BookRepository context, IWebHostEnvironment webHostEnvironment)
+        public BookController(IBookRepository context, IWebHostEnvironment webHostEnvironment)
         {
             _bookRepository = context;
             _webHostEnvironment = webHostEnvironment;

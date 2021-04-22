@@ -27,11 +27,13 @@ namespace JokesWebApp.Controllers
         }
 
         // GET: Jokes/ShowSearchForm
+        [Route("ShowSearchForm33")]
         public async Task<IActionResult> ShowSearchForm()
         {
             return View();
         }
 
+        [Route("show-search-results/{SearchPhrase:alpha}")]
         public async Task<IActionResult> ShowSearchResults(string SearchPhrase)
         {
             return View("Index", await _context.Joke.ToListAsync());

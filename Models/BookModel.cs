@@ -30,7 +30,7 @@ namespace JokesWebApp.Models
         public IFormFile CoverPhoto { get; set; }
 
         //for selecting multiple images
-        [Display(Name = "Choosegallery images of your book")]
+        [Display(Name = "Choose gallery images of your book")]
         public IFormFileCollection GalleryFiles { get; set; }
         public List<GalleryModel> Gallery { get; set; }
 

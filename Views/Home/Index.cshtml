@@ -6,6 +6,7 @@
     dynamic data = ViewBag.Data;
 
 }
+@inject JokesWebApp.Repositories.IBookRepository _bookRepository;
 
 <div class="text-center">
     <h1 class="display-4">Top Books @ViewBag.Title</h1>
@@ -23,6 +24,12 @@
 
     <p>ID : @ViewBag.Abu.Id  Name : @ViewBag.Abu.Author</p>
     <p>I went to school at @ViewData["School"]</p>
+
+    @foreach (var item in await _bookRepository.GetAllBooks())
+    {
+        <h2>@item.Title</h2>
+    }
+
     <div class="container">
         <big>Top books</big>
         <i big>Top books using attributr (overriding html tags)</i>

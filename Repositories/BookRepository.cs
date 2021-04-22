@@ -8,26 +8,26 @@ using System.Threading.Tasks;
 
 namespace JokesWebApp.Repositories
 {
-    public class BookRepository
+    public class BookRepository : IBookRepository
     {
         private readonly ApplicationDbContext _context = null;
         public BookRepository(ApplicationDbContext context)
         {
-            _context=context;
+            _context = context;
         }
         public async Task<int> AddNewBook(BookModel model)
         {
             var newBook = new Books()
             {
                 Author = model.Author,
-                CreatedOn =DateTime.UtcNow  ,
+                CreatedOn = DateTime.UtcNow,
                 Description = model.Description,
                 Title = model.Title,
-                LanguageId=model.LanguageId,
-                TotalPages=model.TotalPages.HasValue ? model.TotalPages.Value : 0,
-                UpdatedOn=DateTime.UtcNow,
-                CoverImageUrl=model.CoverImageUrl,
-                BookPdfUrl=model.BookPdfUrl
+                LanguageId = model.LanguageId,
+                TotalPages = model.TotalPages.HasValue ? model.TotalPages.Value : 0,
+                UpdatedOn = DateTime.UtcNow,
+                CoverImageUrl = model.CoverImageUrl,
+                BookPdfUrl = model.BookPdfUrl
             };
 
             //newBook.bookGallery = new List<BookGallery>();
@@ -40,29 +40,29 @@ namespace JokesWebApp.Repositories
             //    });
             //}
 
-            await  _context.Books.AddAsync(newBook);
+            await _context.Books.AddAsync(newBook);
             await _context.SaveChangesAsync();
             return newBook.Id;
         }
- 
 
-        public async Task<List<BookModel>>  GetAllBooks()
+
+        public async Task<List<BookModel>> GetAllBooks()
         {
             var books = new List<BookModel>();
-            var allbooks =await _context.Books.ToListAsync();
+            var allbooks = await _context.Books.ToListAsync();
             if (allbooks?.Any() == true)
             {
                 foreach (var book in allbooks)
                 {
                     books.Add(new BookModel()
                     {
-                        Author=book.Author,
-                        Category=book.Category,
-                        Title=book.Title,
-                        Description=book.Description,
-                        Id=book.Id,
-                        LanguageId=book.LanguageId,
-                        TotalPages=book.TotalPages,
+                        Author = book.Author,
+                        Category = book.Category,
+                        Title = book.Title,
+                        Description = book.Description,
+                        Id = book.Id,
+                        LanguageId = book.LanguageId,
+                        TotalPages = book.TotalPages,
                         CoverImageUrl = book.CoverImageUrl
                     });
                 }
@@ -71,7 +71,7 @@ namespace JokesWebApp.Repositories
             return books;
         }
 
-        public async Task<List<BookModel>> GetTopBooksAsync()
+        public async Task<List<BookModel>> GetTopBooksAsync(int count)
         {
             return await _context.Books
                    .Select(book => new BookModel()
@@ -84,13 +84,13 @@ namespace JokesWebApp.Repositories
                        LanguageId = book.LanguageId,
                        TotalPages = book.TotalPages,
                        CoverImageUrl = book.CoverImageUrl
-                   }).Take(5).ToListAsync();
-            
+                   }).Take(count).ToListAsync();
+
         }
 
-        public async Task<BookModel>  GetBookById(int id)
+        public async Task<BookModel> GetBookById(int id)
         {
-            var book =await _context.Books.FindAsync(id);
+            var book = await _context.Books.FindAsync(id);
             if (book != null)
             {
                 var bookDetails = new BookModel()
@@ -103,13 +103,13 @@ namespace JokesWebApp.Repositories
                     LanguageId = book.LanguageId,
                     TotalPages = book.TotalPages,
                     CoverImageUrl = book.CoverImageUrl,
-                    Gallery = book.bookGallery.Select(g=> new GalleryModel()
+                    Gallery = book.bookGallery.Select(g => new GalleryModel()
                     {
-                        Id=g.Id,
-                        Name=g.Name,
-                        URL=g.URL
+                        Id = g.Id,
+                        Name = g.Name,
+                        URL = g.URL
                     }).ToList(),
-                    BookPdfUrl=book.BookPdfUrl
+                    BookPdfUrl = book.BookPdfUrl
                 };
 
                 return bookDetails;
@@ -119,7 +119,7 @@ namespace JokesWebApp.Repositories
             return null;
         }
 
-        public List<BookModel> SearchBook(string title,string authorName)
+        public List<BookModel> SearchBook(string title, string authorName)
         {
             //return DataSource().Where(x=>x.Author==authorName && x.Title==title).ToList();
             return null;
