@@ -39,10 +39,12 @@ namespace JokesWebApp
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddScoped<BookRepository,BookRepository>();
+
+            services.AddScoped<IBookRepository,BookRepository>();
+            services.AddScoped<IAccountRepository,AccountRepository>();
 
             //to configure razor pages outomatically make changes instead of building evry time
-        #if DEBUG
+#if DEBUG
             services.AddRazorPages().AddRazorRuntimeCompilation();
         #endif
         }
@@ -50,7 +52,7 @@ namespace JokesWebApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsDevelopment()) 
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
@@ -69,6 +71,7 @@ namespace JokesWebApp
             app.UseAuthentication();
             app.UseAuthorization();
 
+          
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -77,7 +80,7 @@ namespace JokesWebApp
                 endpoints.MapRazorPages();
             });
 
-           
+            
         }
     }
 }
