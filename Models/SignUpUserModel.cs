@@ -8,6 +8,10 @@ namespace JokesWebApp.Models
 {
     public class SignUpUserModel
     {
+        [Required(ErrorMessage = "Please Enter Your FirstName")]
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
         [Required(ErrorMessage = "Please Enter Your emil")]
         [Display(Name="Email :")]
         [EmailAddress(ErrorMessage ="Please enter a valid email")]
