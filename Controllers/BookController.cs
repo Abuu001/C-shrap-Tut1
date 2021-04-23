@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using JokesWebApp.Models;
 using JokesWebApp.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -45,6 +46,7 @@ namespace JokesWebApp.Controllers
             return View(data);
         }
 
+        [Authorize]
         public ViewResult AddNewBook(bool isSuccess=false,int bookId =0)
         {
             ViewBag.IsSuccess = isSuccess;
